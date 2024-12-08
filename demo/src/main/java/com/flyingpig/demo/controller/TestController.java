@@ -1,23 +1,21 @@
 package com.flyingpig.demo.controller;
 
 import com.flyingpig.mvc.annotation.*;
+import com.flyingpig.mvc.annotation.mapping.GetMapping;
+import com.flyingpig.mvc.annotation.mapping.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
-@RequestMapping("/test")
+@RequestMapping(value = "/test")
 public class TestController {
 
     @Autowired
-    Test test;
+    TestService testService;
 
-    @Autowired
-    Testtoo testtoo;
 
-    @RequestMapping("/hello-world")
+    @GetMapping("/hello-world")
     public Result hello() {
-        test.test();
-        testtoo.test();
-        return new Result(200,"test", testtoo);
+        return new Result(200, testService.test());
     }
 
     @RequestMapping("/hello/{name}")

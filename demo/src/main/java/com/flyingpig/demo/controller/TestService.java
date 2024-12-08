@@ -3,9 +3,10 @@ package com.flyingpig.demo.controller;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Test {
+public class TestService {
 
-    public void test(){
+    public String test(){
         System.out.println("test...");
+        return "Hello World!";
     }
 }
