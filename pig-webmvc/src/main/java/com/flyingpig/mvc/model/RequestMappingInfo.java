@@ -1,4 +1,4 @@
-package com.flyingpig.mvc.core;
+package com.flyingpig.mvc.model;
 
 import java.util.Objects;
 

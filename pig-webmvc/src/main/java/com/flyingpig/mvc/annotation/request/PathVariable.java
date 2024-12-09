@@ -1,4 +1,4 @@
-package com.flyingpig.mvc.annotation;
+package com.flyingpig.mvc.annotation.request;
 
 import java.lang.annotation.*;
 

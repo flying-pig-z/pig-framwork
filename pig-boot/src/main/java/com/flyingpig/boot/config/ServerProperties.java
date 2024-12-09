@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ServerProperties {
 
-    @Value("${server.port:9080}") // 默认值为 8080
+    @Value("${server.port:8080}") // 默认值为 8080
     private int port;
 
-    @Value("${server.type:tomcat}") // 默认值为 tomcat
+    @Value("${server.type:tomcat}") // 默认值为 tomcat,可以选择jetty
     private String type;
 
     public int getPort() { return port; }

@@ -3,6 +3,9 @@ package com.flyingpig.demo.controller;
 import com.flyingpig.mvc.annotation.*;
 import com.flyingpig.mvc.annotation.mapping.GetMapping;
 import com.flyingpig.mvc.annotation.mapping.RequestMapping;
+import com.flyingpig.mvc.annotation.request.PathVariable;
+import com.flyingpig.mvc.annotation.request.RequestBody;
+import com.flyingpig.mvc.annotation.request.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController

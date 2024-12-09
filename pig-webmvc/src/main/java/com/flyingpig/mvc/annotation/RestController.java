@@ -1,5 +1,6 @@
 package com.flyingpig.mvc.annotation;
 
+import com.flyingpig.mvc.annotation.response.ResponseBody;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;

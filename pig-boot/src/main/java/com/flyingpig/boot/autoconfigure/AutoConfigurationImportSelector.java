@@ -3,10 +3,8 @@ package com.flyingpig.boot.autoconfigure;
 
 import com.flyingpig.boot.annotation.EnableAutoConfiguration;
 import org.springframework.context.annotation.ImportSelector;
-import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.StringUtils;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

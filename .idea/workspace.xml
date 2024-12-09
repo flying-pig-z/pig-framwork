@@ -41,7 +41,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/86138/Desktop/Git仓库/pig-framework/demo/src/main/resources&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/86138/Desktop/Git仓库/pig-framework/pig-boot/src/main/resources&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -51,6 +51,13 @@
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;1494d2b2f93c255c73b0e51f99764c57&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;module&quot;,
+      &quot;repository&quot;
+    ]
   }
 }</component>
   <component name="RecentsManager">
@@ -58,6 +65,7 @@
       <recent name="com.flyingpig.boot.config" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\pig-boot\src\main\resources" />
       <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\demo\src\main\resources" />
       <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\demo\src\main\java\com\flyingpig\demo" />
       <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\pig-webmvc\src\main\java" />
@@ -149,10 +157,24 @@
       <workItem from="1733557445649" duration="3040000" />
       <workItem from="1733625085656" duration="3901000" />
       <workItem from="1733652175570" duration="3542000" />
+      <workItem from="1733664139835" duration="3148000" />
+      <workItem from="1733711097867" duration="2125000" />
     </task>
+    <task id="LOCAL-00001" summary="add: 完成boot模块和webmvc模块">
+      <created>1733664480855</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1733664480855</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add: 完成boot模块和webmvc模块" />
+    <option name="LAST_COMMIT_MESSAGE" value="add: 完成boot模块和webmvc模块" />
   </component>
 </project>
