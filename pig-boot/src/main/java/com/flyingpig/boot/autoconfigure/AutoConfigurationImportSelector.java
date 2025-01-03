@@ -115,6 +115,7 @@ public class AutoConfigurationImportSelector implements ImportSelector {
             // 遍历每个资源文件
             while (urls.hasMoreElements()) {
                 URL url = urls.nextElement();
+                // 添加日志
                 try (BufferedReader reader = new BufferedReader(
                         new InputStreamReader(url.openStream()))) {
                     String line;

@@ -12,6 +12,8 @@
         <module>pig-webmvc</module>
         <module>pig-boot</module>
         <module>demo</module>
+        <module>pig-jdbc</module>
+        <module>pig-ioc</module>
     </modules>
 
     <properties>

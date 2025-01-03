@@ -1,0 +1,2 @@
+com.flyingpig.boot.annotation.EnableAutoConfiguration=\
+    com.flyingpig.jdbc.config.DataSourceAutoConfiguration

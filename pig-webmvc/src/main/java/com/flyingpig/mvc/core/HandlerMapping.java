@@ -1,6 +1,7 @@
 package com.flyingpig.mvc.core;
 
 import com.flyingpig.mvc.annotation.Controller;
+import com.flyingpig.mvc.annotation.RestController;
 import com.flyingpig.mvc.annotation.mapping.*;
 import com.flyingpig.mvc.model.HandlerMethod;
 import com.flyingpig.mvc.model.RequestMappingInfo;
@@ -40,10 +41,8 @@ public class HandlerMapping {
     public void initMapping() {
         // 获取所有带有 @Controller 注解的 Bean
         Map<String, Object> controllers = applicationContext.getBeansWithAnnotation(Controller.class);
-
         // 注册 URL + 请求方法与实际方法的映射
         controllers.forEach((name, controller) -> registerController(controller));
-
         // 打印所有注册的 URL 映射
         printMappings();
     }
@@ -55,28 +54,60 @@ public class HandlerMapping {
      * @return 处理该请求的 HandlerMethod，如果没有找到匹配的处理方法，则返回 null
      */
     public HandlerMethod getHandler(HttpServletRequest request) {
-        // 获取请求的 URI 和 HTTP 方法
         String uri = request.getRequestURI();
         String httpMethod = request.getMethod();
 
-        // 创建 RequestMappingInfo 作为查找键
-        RequestMappingInfo key = new RequestMappingInfo(uri, httpMethod);
+        // 遍历所有的映射，找到匹配的处理器
+        for (Map.Entry<RequestMappingInfo, HandlerMethod> entry : handlerMethods.entrySet()) {
+            RequestMappingInfo mappingInfo = entry.getKey();
 
-        // 根据 URI 和 HTTP 方法获取对应的处理方法
-        HandlerMethod handler = handlerMethods.get(key);
+            // 1. 检查HTTP方法是否匹配
+            if (!mappingInfo.getMethod().equals(httpMethod)) {
+                continue;
+            }
 
-        if (handler == null) {
-            // 如果没有找到精确匹配的处理方法，检查是否有其他 HTTP 方法的映射
-            for (Map.Entry<RequestMappingInfo, HandlerMethod> entry : handlerMethods.entrySet()) {
-                if (entry.getKey().getUrl().equals(uri)) {
-                    // 如果 URL 匹配，但 HTTP 方法不同，则抛出异常提示客户端使用正确的 HTTP 方法
-                    throw new RuntimeException("Method " + httpMethod + " not allowed, try " +
-                            entry.getKey().getMethod() + " instead");
-                }
+            // 2. 检查URL是否匹配（支持路径变量）
+            if (matchUrl(mappingInfo.getUrl(), uri)) {
+                return entry.getValue();
             }
         }
 
-        return handler;
+        return null;
+    }
+
+    /**
+     * 检查URL是否匹配，支持路径变量
+     */
+    private boolean matchUrl(String pattern, String actualUrl) {
+        // 移除首尾的斜杠
+        pattern = pattern.replaceAll("^/+|/+$", "");
+        actualUrl = actualUrl.replaceAll("^/+|/+$", "");
+
+        String[] patternParts = pattern.split("/");
+        String[] actualParts = actualUrl.split("/");
+
+        // 部分数量必须相同
+        if (patternParts.length != actualParts.length) {
+            return false;
+        }
+
+        // 逐部分比较
+        for (int i = 0; i < patternParts.length; i++) {
+            String patternPart = patternParts[i];
+            String actualPart = actualParts[i];
+
+            // 如果是路径变量（{xxx}格式），则认为匹配
+            if (patternPart.startsWith("{") && patternPart.endsWith("}")) {
+                continue;
+            }
+
+            // 否则必须精确匹配
+            if (!patternPart.equals(actualPart)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -87,7 +118,6 @@ public class HandlerMapping {
     private void registerController(Object controller) {
         // 获取控制器类的类型
         Class<?> controllerClass = controller.getClass();
-
         // 获取控制器类的基础 URL（如果有的话）
         String baseUrl = getBaseUrl(controllerClass);
 
@@ -120,8 +150,8 @@ public class HandlerMapping {
      */
     private void processMethod(Method method, Object controller, String baseUrl) {
         // 默认方法 URL 和 HTTP 方法
-        String methodUrl = "";
-        String httpMethod = "";
+        String methodUrl;
+        String httpMethod;
 
         // 根据方法上的注解设置 URL 和 HTTP 方法
         if (method.isAnnotationPresent(GetMapping.class)) {
@@ -172,10 +202,15 @@ public class HandlerMapping {
      * @return 拼接后的完整 URL
      */
     private String combineUrl(String baseUrl, String methodUrl) {
-        // 去除前后多余的斜杠，并拼接
         baseUrl = baseUrl.trim().replaceAll("^/+|/+$", "");
         methodUrl = methodUrl.trim().replaceAll("^/+|/+$", "");
-        return "/" + baseUrl + (baseUrl.isEmpty() ? "" : "/") + methodUrl;
+
+        // 如果methodUrl为空，不要加后面的斜杠
+        if (methodUrl.isEmpty()) {
+            return "/" + baseUrl;
+        }
+
+        return "/" + baseUrl + "/" + methodUrl;
     }
 
     /**

@@ -1,6 +1,8 @@
 package com.flyingpig.mvc.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flyingpig.mvc.annotation.request.PathVariable;
+import com.flyingpig.mvc.annotation.request.RequestBody;
 import com.flyingpig.mvc.annotation.request.RequestParam;
 import com.flyingpig.mvc.annotation.response.ResponseBody;
 import com.flyingpig.mvc.annotation.RestController;
@@ -9,9 +11,12 @@ import org.springframework.context.ApplicationContext;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -27,6 +32,7 @@ public class HandlerAdapter {
 
     /**
      * 设置 ApplicationContext
+     *
      * @param applicationContext 应用上下文，用于获取注入的 bean
      */
     public void setApplicationContext(ApplicationContext applicationContext) {
@@ -35,14 +41,15 @@ public class HandlerAdapter {
 
     /**
      * 处理 HTTP 请求，执行相应的控制器方法并将结果返回给响应。
-     * @param request HTTP 请求
+     *
+     * @param request  HTTP 请求
      * @param response HTTP 响应
-     * @param handler 控制器方法
+     * @param handler  控制器方法
      * @throws Exception 如果方法执行过程中发生错误，则抛出异常
      */
     public void handle(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler) throws Exception {
         // 进行前置处理 -- 根据注解对参数进行处理
-        Object[] args = preHandle(request, response, handler.getMethod());
+        Object[] args = preHandle(request, response, handler);
 
         // 执行控制器方法，获取结果
         Object result = handler.getMethod().invoke(handler.getController(), args);
@@ -53,52 +60,87 @@ public class HandlerAdapter {
 
     /**
      * 处理前置逻辑，获取控制器方法的参数并填充。
-     * @param request HTTP 请求
+     *
+     * @param request  HTTP 请求
      * @param response HTTP 响应
-     * @param method 控制器方法
+     * @param handler  方法控制器
      * @return 参数数组，用于方法调用
      */
-    private Object[] preHandle(HttpServletRequest request, HttpServletResponse response, Method method) {
+    private Object[] preHandle(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler) throws IOException {
         // 获取方法的参数列表
+        Method method = handler.getMethod();
         Parameter[] parameters = method.getParameters();
-        // 用于存储方法的参数
         Object[] args = new Object[parameters.length];
+
+        // 获取请求路径变量
+        String requestUri = request.getRequestURI();
+        String urlPattern = handler.getMappingInfo().getUrl();
+        Map<String, String> pathVariables = extractPathVariables(urlPattern, requestUri);
 
         // 遍历每个参数，进行填充
         for (int i = 0; i < parameters.length; i++) {
             Parameter parameter = parameters[i];
 
-            // 如果参数类型是 HttpServletRequest，则传入请求对象
+            // 处理HttpServletRequest参数
             if (parameter.getType().equals(HttpServletRequest.class)) {
                 args[i] = request;
+                continue;
             }
-            // 如果参数类型是 HttpServletResponse，则传入响应对象
-            else if (parameter.getType().equals(HttpServletResponse.class)) {
+
+            // 处理HttpServletResponse参数
+            if (parameter.getType().equals(HttpServletResponse.class)) {
                 args[i] = response;
+                continue;
             }
-            // 如果参数有 @RequestParam 注解，则从请求参数中获取对应值
-            else if (parameter.isAnnotationPresent(RequestParam.class)) {
-                String paramName = parameter.getAnnotation(RequestParam.class).value();
+
+            // 处理@PathVariable注解
+            if (parameter.isAnnotationPresent(PathVariable.class)) {
+                PathVariable pathVariable = parameter.getAnnotation(PathVariable.class);
+                String paramName = pathVariable.value().isEmpty() ? parameter.getName() : pathVariable.value();
+                args[i] = pathVariables.get(paramName);
+                continue;
+            }
+
+            // 处理@RequestParam注解
+            if (parameter.isAnnotationPresent(RequestParam.class)) {
+                RequestParam requestParam = parameter.getAnnotation(RequestParam.class);
+                String paramName = requestParam.value().isEmpty() ? parameter.getName() : requestParam.value();
                 args[i] = request.getParameter(paramName);
+                continue;
             }
-            // 如果参数没有特别注解，则从 ApplicationContext 获取对应的 Bean
-            else {
-                try {
-                    args[i] = applicationContext.getBean(parameter.getType());
-                } catch (Exception e) {
-                    // 如果没有找到 Bean，则设置为 null
-                    args[i] = null;
+
+            // 处理@RequestBody注解
+            if (parameter.isAnnotationPresent(RequestBody.class)) {
+                // 读取请求体
+                StringBuilder requestBody = new StringBuilder();
+                String line;
+                try (BufferedReader reader = request.getReader()) {
+                    while ((line = reader.readLine()) != null) {
+                        requestBody.append(line);
+                    }
                 }
+                // 将JSON转换为对象
+                args[i] = objectMapper.readValue(requestBody.toString(), parameter.getType());
+                continue;
+            }
+
+            // 如果没有特别的注解，尝试从ApplicationContext获取Bean
+            try {
+                args[i] = applicationContext.getBean(parameter.getType());
+            } catch (Exception e) {
+                args[i] = null;
             }
         }
         return args;
     }
 
+
     /**
      * 处理后置逻辑，将方法执行结果写入响应。
+     *
      * @param response HTTP 响应
-     * @param result 方法执行结果
-     * @param handler 控制器方法
+     * @param result   方法执行结果
+     * @param handler  控制器方法
      * @throws IOException 如果写入响应时发生错误
      */
     private void postHandle(HttpServletResponse response, Object result, HandlerMethod handler) throws IOException {
@@ -117,4 +159,27 @@ public class HandlerAdapter {
             response.getWriter().write(result != null ? result.toString() : "");
         }
     }
+
+    /**
+     * 从URL中提取路径变量
+     */
+    private Map<String, String> extractPathVariables(String urlPattern, String actualUrl) {
+        Map<String, String> variables = new HashMap<>();
+
+        String[] patternParts = urlPattern.split("/");
+        String[] actualParts = actualUrl.split("/");
+
+        for (int i = 0; i < patternParts.length; i++) {
+            String part = patternParts[i];
+            if (part.startsWith("{") && part.endsWith("}")) {
+                // 提取变量名
+                String varName = part.substring(1, part.length() - 1);
+                // 保存变量值
+                variables.put(varName, actualParts[i]);
+            }
+        }
+
+        return variables;
+    }
+
 }
