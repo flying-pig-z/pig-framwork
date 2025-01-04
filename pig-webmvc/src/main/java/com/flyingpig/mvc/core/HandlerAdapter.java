@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -109,7 +110,7 @@ public class HandlerAdapter {
                 continue;
             }
 
-            // 处理@RequestBody注解
+// 处理@RequestBody注解
             if (parameter.isAnnotationPresent(RequestBody.class)) {
                 // 读取请求体
                 StringBuilder requestBody = new StringBuilder();
@@ -119,8 +120,11 @@ public class HandlerAdapter {
                         requestBody.append(line);
                     }
                 }
-                // 将JSON转换为对象
-                args[i] = objectMapper.readValue(requestBody.toString(), parameter.getType());
+                // 获取参数的泛型类型信息
+                Type genericParameterType = parameter.getParameterizedType();
+                // 将JSON转换为对象，使用泛型类型信息
+                args[i] = objectMapper.readValue(requestBody.toString(),
+                        objectMapper.getTypeFactory().constructType(genericParameterType));
                 continue;
             }
 

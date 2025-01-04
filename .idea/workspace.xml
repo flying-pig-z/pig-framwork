@@ -41,7 +41,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "corretto-17",
-    "last_opened_file_path": "C:/Users/86138/Desktop/Git仓库/pig-framework/pig-jdbc/src/main/resources",
+    "last_opened_file_path": "C:/Users/86138/Desktop/Git仓库/pig-framework/pig-boot/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -69,8 +69,8 @@
       <recent name="com.flyingpig.boot.config" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\pig-jdbc\src\main\resources" />
       <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\pig-boot\src\main\resources" />
+      <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\pig-jdbc\src\main\resources" />
       <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\demo\src\main\resources" />
       <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\demo\src\main\java\com\flyingpig\demo" />
       <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\pig-webmvc\src\main\java" />
@@ -198,7 +198,7 @@
       <workItem from="1735808829397" duration="2266000" />
       <workItem from="1735817153636" duration="101000" />
       <workItem from="1735888110399" duration="5211000" />
-      <workItem from="1735893376079" duration="9538000" />
+      <workItem from="1735893376079" duration="14779000" />
     </task>
     <task id="LOCAL-00001" summary="add: 完成boot模块和webmvc模块">
       <created>1733664480855</created>
@@ -214,7 +214,21 @@
       <option name="project" value="LOCAL" />
       <updated>1733713813788</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add: 完成jdbc模块，初步提交ioc模块">
+      <created>1735918065242</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1735918065242</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix: 自动注册服务器配置类">
+      <created>1735918508001</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1735918508001</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -234,6 +248,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add: 完成boot模块和webmvc模块" />
     <MESSAGE value="refactor &amp; fix: 重构webmvc模块，并修复boot模块的无法加载配置文件的bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor &amp; fix: 重构webmvc模块，并修复boot模块的无法加载配置文件的bug" />
+    <MESSAGE value="add: 完成jdbc模块，初步提交ioc模块" />
+    <MESSAGE value="fix: 自动注册服务器配置类" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 自动注册服务器配置类" />
   </component>
 </project>

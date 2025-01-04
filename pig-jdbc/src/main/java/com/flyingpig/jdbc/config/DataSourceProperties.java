@@ -5,31 +5,28 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DataSourceProperties {
-    @Value("${spring.datasource.url}")
     private String url;
 
-    @Value("${spring.datasource.username}")
     private String username;
 
-    public DataSourceProperties() {
-    }
-
-    @Value("${spring.datasource.password}")
     private String password;
 
-    // getters and setters
-    public String getUrl() {
-        return url;
-    }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public DataSourceProperties() {
     }
 
     public DataSourceProperties(String url, String username, String password) {
         this.url = url;
         this.username = username;
         this.password = password;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getUsername() {

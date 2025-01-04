@@ -10,6 +10,10 @@ import com.flyingpig.mvc.annotation.request.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.flyingpig.mvc.annotation.request.RequestParam;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
@@ -45,6 +49,18 @@ public class UserController {
         userService.createUser(user);
         return Result.success();
     }
+
+    // 批量增加用户
+    @PostMapping("/batch")
+    public Result batchCreateUsers(@RequestBody List<User> users) {
+        System.out.println("批量添加用户：");
+        for (User user : users) {
+            System.out.println(user);
+        }
+        userService.batchCreateUsers(users);
+        return Result.success();
+    }
+
 
     // 删除用户
     @DeleteMapping("/{id}")

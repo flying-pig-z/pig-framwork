@@ -1,6 +1,7 @@
 package com.flyingpig.jdbc.transaction;
 
 import com.flyingpig.jdbc.DataSource;
+import com.flyingpig.jdbc.connection.ConnectionHolder;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -8,36 +9,34 @@ import java.sql.SQLException;
 // 事务管理器实现
 public class DataSourceTransactionManager implements TransactionManager {
     private DataSource dataSource;
-    private ThreadLocal<Connection> connectionHolder = new ThreadLocal<>();
 
     public DataSourceTransactionManager(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
-    @Override
     public void begin() throws SQLException {
         Connection conn = dataSource.getConnection();
         conn.setAutoCommit(false);
-        connectionHolder.set(conn);
+        ConnectionHolder.setConnection(conn);
     }
 
-    @Override
     public void commit() throws SQLException {
-        Connection conn = connectionHolder.get();
+        Connection conn = ConnectionHolder.getConnection();
         if (conn != null) {
             conn.commit();
+            conn.setAutoCommit(true);
             conn.close();
-            connectionHolder.remove();
+            ConnectionHolder.removeConnection();
         }
     }
 
-    @Override
     public void rollback() throws SQLException {
-        Connection conn = connectionHolder.get();
+        Connection conn = ConnectionHolder.getConnection();
         if (conn != null) {
             conn.rollback();
+            conn.setAutoCommit(true);
             conn.close();
-            connectionHolder.remove();
+            ConnectionHolder.removeConnection();
         }
     }
 }

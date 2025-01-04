@@ -3,6 +3,9 @@ package com.flyingpig.jdbc.config;
 import com.flyingpig.jdbc.DataSource;
 import com.flyingpig.jdbc.JdbcTemplate;
 import com.flyingpig.jdbc.SimpleDataSource;
+import com.flyingpig.jdbc.transaction.DataSourceTransactionManager;
+import com.flyingpig.jdbc.transaction.TransactionAspect;
+import com.flyingpig.jdbc.transaction.TransactionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,5 +40,15 @@ public class DataSourceAutoConfiguration {
     @Bean
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
+    }
+
+    @Bean
+    public TransactionManager transactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
+
+    @Bean
+    public TransactionAspect transactionAspect(TransactionManager transactionManager) {
+        return new TransactionAspect(transactionManager);
     }
 }

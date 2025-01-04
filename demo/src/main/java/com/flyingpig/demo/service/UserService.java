@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -51,6 +53,25 @@ public class UserService {
             }, id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Transactional
+    public void batchCreateUsers(List<User> users) {
+        String sql = "INSERT INTO user (id, username, email) VALUES (?, ?, ?)";
+
+        try {
+            List<Object[]> batchArgs = users.stream()
+                    .map(user -> new Object[]{
+                            user.getId(),
+                            user.getUsername(),
+                            user.getEmail()
+                    })
+                    .collect(Collectors.toList());
+
+            jdbcTemplate.batchUpdate(sql, batchArgs);
+        } catch (Exception e) {
+            throw new RuntimeException("批量创建用户失败", e);
         }
     }
 }
