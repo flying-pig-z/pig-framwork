@@ -41,12 +41,12 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "corretto-17",
-    "last_opened_file_path": "C:/Users/86138/Desktop/Git仓库/pig-framework/pig-boot/src/main/resources",
+    "last_opened_file_path": "C:/Users/86138/Desktop/Git仓库/pig-framework/pig-ioc/src/test/java",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "问题",
+    "project.structure.last.edited": "模块",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.pluginManager",
@@ -69,22 +69,25 @@
       <recent name="com.flyingpig.boot.config" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\pig-ioc\src\test\java" />
       <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\pig-boot\src\main\resources" />
       <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\pig-jdbc\src\main\resources" />
       <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\demo\src\main\resources" />
       <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\demo\src\main\java\com\flyingpig\demo" />
-      <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\pig-webmvc\src\main\java" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\demo\src\main\resources" />
       <recent name="C:\Users\86138\Desktop\Git仓库\pig-framework\demo\src\main\resources\META-INF" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.flyingpig.ioc" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.flyingpig.demo" />
       <recent name="com.flyingpig.boot" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.DemoApplication">
+  <component name="RunManager" selected="应用程序.IoCTest">
     <configuration name="DemoApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.flyingpig.demo.DemoApplication" />
       <module name="demo" />
@@ -98,12 +101,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="IoCTest (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="IoCTest" />
+      <module name="pig-ioc" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="IoCTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.flyingpig.ioc.test.IoCTest" />
       <module name="pig-ioc" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.flyingpig.ioc.test.*" />
+          <option name="PATTERN" value="com.flyingpig.ioc.test.user.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -111,9 +121,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServiceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ServiceApplication" />
-      <module name="pig-boot" />
+    <configuration name="IoCTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.flyingpig.ioc.test.IoCTest" />
+      <module name="pig-ioc" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.flyingpig.ioc.annotation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -134,12 +150,6 @@
     <configuration name="com.flyingpig.ioc.IoCTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.flyingpig.ioc.IoCTest" />
       <module name="pig-ioc" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.flyingpig.ioc.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -156,11 +166,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.DemoApplication" />
-        <item itemvalue="应用程序.com.flyingpig.ioc.IoCTest" />
         <item itemvalue="应用程序.IoCTest" />
-        <item itemvalue="应用程序.com.flyingpig.boot.ServiceApplication" />
-        <item itemvalue="应用程序.ServiceApplication" />
+        <item itemvalue="应用程序.IoCTest (1)" />
+        <item itemvalue="应用程序.com.flyingpig.ioc.IoCTest" />
+        <item itemvalue="应用程序.com.flyingpig.ioc.IoCTest" />
+        <item itemvalue="应用程序.DemoApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -198,7 +208,8 @@
       <workItem from="1735808829397" duration="2266000" />
       <workItem from="1735817153636" duration="101000" />
       <workItem from="1735888110399" duration="5211000" />
-      <workItem from="1735893376079" duration="14779000" />
+      <workItem from="1735893376079" duration="17061000" />
+      <workItem from="1735996602420" duration="17410000" />
     </task>
     <task id="LOCAL-00001" summary="add: 完成boot模块和webmvc模块">
       <created>1733664480855</created>
@@ -228,7 +239,21 @@
       <option name="project" value="LOCAL" />
       <updated>1735918508001</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fix: 自动注册服务器配置类 &amp;&amp; 增加批量添加接口测试事务功能">
+      <created>1735971931915</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1735971931915</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: 完成ioc模块">
+      <created>1736002634669</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1736002634670</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,6 +275,8 @@
     <MESSAGE value="refactor &amp; fix: 重构webmvc模块，并修复boot模块的无法加载配置文件的bug" />
     <MESSAGE value="add: 完成jdbc模块，初步提交ioc模块" />
     <MESSAGE value="fix: 自动注册服务器配置类" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: 自动注册服务器配置类" />
+    <MESSAGE value="fix: 自动注册服务器配置类 &amp;&amp; 增加批量添加接口测试事务功能" />
+    <MESSAGE value="feat: 完成ioc模块" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 完成ioc模块" />
   </component>
 </project>
