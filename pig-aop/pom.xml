@@ -8,10 +8,5 @@
     </parent>
     <artifactId>pig-aop</artifactId>
     <dependencies>
-        <dependency>
-            <groupId>com.flyingpig</groupId>
-            <artifactId>pig-ioc</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 </project>
